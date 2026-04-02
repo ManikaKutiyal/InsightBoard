@@ -5,6 +5,7 @@ console.log(
   "Gemini key loaded:",
   !!process.env.GEMINI_API_KEY
 );
+console.log("JWT_SECRET loaded:", !!process.env.JWT_SECRET);
 
 import express from "express";
 import mongoose from "mongoose";
@@ -25,7 +26,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// Health check
+app.get("/", (req, res) => {
+  res.send("InsightBoard API is running...");
+});
+
 // Routes
+
 app.use("/tasks", taskRoutes);
 app.use("/ai", aiRoutes);
 console.log("Mounting auth routes...", typeof authRoutes);
@@ -37,12 +44,11 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
-    if (process.env.NODE_ENV !== "production") {
-      app.listen(process.env.PORT || 5001, () =>
-        console.log(`Server running on port ${process.env.PORT || 5001}`)
-      );
-    }
+    app.listen(process.env.PORT || 5001, () =>
+      console.log(`Server running on port ${process.env.PORT || 5001}`)
+    );
   })
+
   .catch((err) => console.log(err));
 
 export default app;
