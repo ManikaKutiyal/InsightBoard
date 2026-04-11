@@ -36,28 +36,28 @@ export default function UnifiedKanban() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-72px)] bg-[#FDF8F5] overflow-hidden">
+    <div className="flex h-[calc(100vh-72px)] bg-brand-bg overflow-hidden">
       {/* KANBAN SECTION */}
       <div className={`flex-1 transition-all duration-500 overflow-x-auto custom-scrollbar ${showAI ? 'pr-4' : ''}`}>
         <header className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-black text-[#5B4B49]">Synergy Board</h1>
+            <h1 className="text-3xl font-black text-brand-charcoal">Synergy Board</h1>
             <div className="flex items-center gap-2">
-              <p className="text-[#F8AFA6] font-bold text-xs uppercase tracking-widest">Global Intelligence • Real-Time sync</p>
+              <p className="text-brand-coral font-bold text-xs uppercase tracking-widest">Global Intelligence • Real-Time sync</p>
               <span className="flex h-2 w-2 rounded-full bg-green-400 animate-pulse" title="Synergy Active"></span>
             </div>
           </div>
           <div className="flex gap-3">
             <button
               onClick={() => setShowAI(!showAI)}
-              className={`p-3 rounded-2xl transition-all ${showAI ? 'bg-[#F8AFA6] text-white' : 'bg-white text-[#F8AFA6] border border-[#FADCD9]'}`}
+              className={`p-3 rounded-2xl transition-all ${showAI ? 'bg-brand-coral text-white' : 'bg-white text-brand-coral border border-brand-border'}`}
             >
               <FiCpu size={20} />
             </button>
             {/* 2. THE WORKING BUTTON */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-[#5B4B49] text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center gap-2 hover:bg-[#F8AFA6] transition-all shadow-md active:scale-95"
+              className="bg-brand-charcoal text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center gap-2 hover:bg-brand-coral transition-all shadow-md active:scale-95"
             >
               <FiPlus /> New Task
             </button>
@@ -70,8 +70,8 @@ export default function UnifiedKanban() {
               <div key={key} className="flex flex-col h-full">
                 <div className="flex items-center gap-2 mb-4 px-2">
                   <span className="text-xl">{emoji}</span>
-                  <h2 className="font-black uppercase text-xs tracking-[0.2em] text-[#5B4B49]/50">{label}</h2>
-                  <span className="ml-auto bg-white px-2 py-0.5 rounded-lg text-[10px] font-bold border border-[#FADCD9] text-[#F8AFA6]">
+                  <h2 className="font-black uppercase text-xs tracking-[0.2em] text-brand-charcoal/50">{label}</h2>
+                  <span className="ml-auto bg-white px-2 py-0.5 rounded-lg text-[10px] font-bold border border-brand-border text-brand-coral">
                     {tasks.filter(t => t.status === key).length}
                   </span>
                 </div>
@@ -81,7 +81,7 @@ export default function UnifiedKanban() {
                     <div
                       ref={provided.innerRef}
                       {...provided.droppableProps}
-                      className={`space-y-4 p-2 overflow-y-auto max-h-[70vh] pr-2 scrollbar-thin rounded-2xl transition-colors min-h-[150px] ${snapshot.isDraggingOver ? "bg-[#FADCD9]/20" : ""
+                      className={`space-y-4 p-2 overflow-y-auto max-h-[70vh] pr-2 scrollbar-thin rounded-2xl transition-colors min-h-[150px] ${snapshot.isDraggingOver ? "bg-brand-border/20" : ""
                         }`}
                     >
                       {tasks
@@ -119,12 +119,12 @@ export default function UnifiedKanban() {
 
       {/* AI ASSISTANT PANEL */}
       {showAI && (
-        <aside className="fixed inset-0 lg:relative lg:inset-auto z-50 lg:z-0 w-full lg:w-96 lg:border-l border-[#FADCD9]/50 bg-white lg:bg-white/50 backdrop-blur-3xl lg:backdrop-blur-xl p-6 flex flex-col animate-in slide-in-from-right duration-300">
+        <aside className="fixed inset-0 lg:relative lg:inset-auto z-50 lg:z-0 w-full lg:w-96 lg:border-l border-brand-border/50 bg-white lg:bg-white/50 backdrop-blur-3xl lg:backdrop-blur-xl p-6 flex flex-col animate-in slide-in-from-right duration-300">
           <div className="flex justify-between items-center mb-6 lg:hidden">
-            <h2 className="text-xl font-black text-[#5B4B49]">Synergy AI</h2>
+            <h2 className="text-xl font-black text-brand-charcoal">Synergy AI</h2>
             <button
               onClick={() => setShowAI(false)}
-              className="p-2 bg-[#FDF8F5] rounded-xl text-[#F8AFA6]"
+              className="p-2 bg-brand-bg rounded-xl text-brand-coral"
             >
               <span className="text-xs font-black uppercase tracking-widest">Close [X]</span>
             </button>

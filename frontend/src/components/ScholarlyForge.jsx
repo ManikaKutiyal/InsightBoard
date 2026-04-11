@@ -68,16 +68,16 @@ export default function ScholarlyForge() {
     };
 
     return (
-        <div className="h-full bg-[#FDF8F5] p-4 lg:p-8 flex flex-col lg:flex-row gap-8 overflow-hidden">
+        <div className="h-full bg-brand-bg p-4 lg:p-8 flex flex-col lg:flex-row gap-8 overflow-hidden">
             {/* LEFT: CHAT AREA */}
             <div className="flex-1 flex flex-col h-full min-h-0 gap-4 lg:gap-6">
                 <header className="flex items-center gap-4 mb-2 shrink-0">
-                    <div className="bg-[#5B4B49] p-3 rounded-2xl text-white shadow-lg">
+                    <div className="bg-brand-charcoal p-3 rounded-2xl text-white shadow-lg">
                         <FiMessageSquare size={24} />
                     </div>
                     <div>
-                        <h1 className="text-2xl lg:text-3xl font-black text-[#5B4B49]">Collab Hub</h1>
-                        <p className="text-[#F8AFA6] font-bold text-[10px] uppercase tracking-widest">Global Discussion • Live Insights</p>
+                        <h1 className="text-2xl lg:text-3xl font-black text-brand-charcoal">Collab Hub</h1>
+                        <p className="text-brand-coral font-bold text-[10px] uppercase tracking-widest">Global Discussion • Live Insights</p>
                     </div>
                 </header>
 
@@ -95,14 +95,14 @@ export default function ScholarlyForge() {
                                 className={`flex flex-col ${msg.userId === (user?.id || user?._id) ? "items-end" : "items-start"}`}
                             >
                                 <div className="flex items-center gap-2 mb-1">
-                                    <span className="text-[10px] font-black uppercase tracking-tighter text-[#5B4B49]/50">{msg.user}</span>
+                                    <span className="text-[10px] font-black uppercase tracking-tighter text-brand-charcoal/50">{msg.user}</span>
                                     <span className="text-[10px] font-bold opacity-30">{msg.timestamp}</span>
                                 </div>
                                 <div className={`
                     max-w-[70%] p-4 rounded-3xl text-sm font-medium shadow-sm
                     ${msg.userId === (user?.id || user?._id)
-                                        ? "bg-[#F8AFA6] text-white rounded-tr-none"
-                                        : "bg-white text-[#5B4B49] rounded-tl-none border border-[#FADCD9]"
+                                        ? "bg-brand-coral text-white rounded-tr-none"
+                                        : "bg-white text-brand-charcoal rounded-tl-none border border-brand-border"
                                     }
                 `}>
                                     {msg.text}
@@ -113,19 +113,19 @@ export default function ScholarlyForge() {
                     </div>
 
                     {/* INPUT AREA */}
-                    <div className="mt-8 pt-6 border-t border-[#FADCD9]/50">
-                        {typing && <p className="text-[10px] font-bold text-[#F8AFA6] italic mb-2 animate-pulse">{typing}</p>}
+                    <div className="mt-8 pt-6 border-t border-brand-border/50">
+                        {typing && <p className="text-[10px] font-bold text-brand-coral italic mb-2 animate-pulse">{typing}</p>}
                         <div className="flex gap-4 items-center">
                             <input
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={handleKeyPress}
                                 placeholder="Share an insight or ask a question..."
-                                className="flex-1 bg-white/50 border-2 border-transparent focus:border-[#FADCD9] outline-none px-6 py-4 rounded-2xl text-sm font-medium transition-all"
+                                className="flex-1 bg-white/50 border-2 border-transparent focus:border-brand-border outline-none px-6 py-4 rounded-2xl text-sm font-medium transition-all"
                             />
                             <button
                                 onClick={sendMessage}
-                                className="bg-[#F8AFA6] text-white p-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
+                                className="bg-brand-coral text-white p-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
                             >
                                 <FiSend size={20} />
                             </button>
@@ -136,7 +136,7 @@ export default function ScholarlyForge() {
 
             {/* RIGHT: LIVE HUD */}
             <aside className="w-full lg:w-80 flex flex-col gap-6 shrink-0">
-                <GlassCard className="p-6 bg-gradient-to-br from-[#5B4B49] to-[#3D3231] text-white">
+                <GlassCard className="p-6 bg-gradient-to-br from-brand-charcoal to-[#3D3231] text-white">
                     <h3 className="text-xs font-black uppercase tracking-[0.2em] opacity-60 mb-4">Forge Status</h3>
                     <div className="flex items-center gap-4">
                         <div className="h-12 w-12 bg-white/10 rounded-2xl flex items-center justify-center animate-pulse">
@@ -150,16 +150,16 @@ export default function ScholarlyForge() {
                 </GlassCard>
 
                 <GlassCard className="flex-1 p-6">
-                    <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#5B4B49]/50 mb-6">Recent Activities</h3>
+                    <h3 className="text-xs font-black uppercase tracking-[0.2em] text-brand-charcoal/50 mb-6">Recent Activities</h3>
                     <div className="space-y-6">
                         <div className="flex gap-4">
-                            <div className="h-2 w-2 bg-[#F8AFA6] rounded-full mt-1 shrink-0" />
-                            <p className="text-xs font-bold text-[#5B4B49]/70 leading-relaxed">Global discussion is heating up. Mention a task to link it.</p>
+                            <div className="h-2 w-2 bg-brand-coral rounded-full mt-1 shrink-0" />
+                            <p className="text-xs font-bold text-brand-charcoal/70 leading-relaxed">Global discussion is heating up. Mention a task to link it.</p>
                         </div>
                         {/* Mock data for now */}
                         <div className="flex gap-4">
-                            <div className="h-2 w-2 bg-[#FADCD9] rounded-full mt-1 shrink-0" />
-                            <p className="text-xs font-bold text-[#5B4B49]/30 leading-relaxed italic">End-to-end encryption active for scholarly integrity.</p>
+                            <div className="h-2 w-2 bg-brand-border rounded-full mt-1 shrink-0" />
+                            <p className="text-xs font-bold text-brand-charcoal/30 leading-relaxed italic">End-to-end encryption active for scholarly integrity.</p>
                         </div>
                     </div>
                 </GlassCard>

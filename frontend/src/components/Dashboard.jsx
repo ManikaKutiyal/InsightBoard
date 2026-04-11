@@ -86,7 +86,7 @@ export default function ProfessionalDashboard() {
   }, []);
 
   return (
-    <div className="w-full text-[#5B4B49] font-sans selection:bg-[#F8AFA6]/30">
+    <div className="w-full text-brand-charcoal font-sans selection:bg-brand-coral/30">
       {/* HEADER SECTION: Welcome + Floating Clock */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 lg:mb-12 gap-6">
         <div className="flex items-center gap-4 lg:gap-6">
@@ -96,16 +96,16 @@ export default function ProfessionalDashboard() {
               alt="avatar"
               className="h-16 w-16 lg:h-20 lg:w-20 rounded-2xl object-cover ring-4 ring-white shadow-xl"
             />
-            <div className="absolute -bottom-1 -right-1 bg-green-400 w-4 h-4 lg:w-5 lg:h-5 rounded-full border-4 border-[#FDF8F5]"></div>
+            <div className="absolute -bottom-1 -right-1 bg-green-400 w-4 h-4 lg:w-5 lg:h-5 rounded-full border-4 border-brand-bg"></div>
           </div>
           <div>
-            <p className="text-[#F8AFA6] font-bold text-[10px] lg:text-sm uppercase tracking-tighter mb-1">
+            <p className="text-brand-coral font-bold text-[10px] lg:text-sm uppercase tracking-tighter mb-1">
               {location} • {weekday}
             </p>
 
             <h1 className="text-2xl lg:text-4xl font-black tracking-tight">
               Welcome,{" "}
-              <span className="text-[#F8AFA6]">
+              <span className="text-brand-coral">
                 {user?.name || "Guest"}
               </span>
             </h1>
@@ -114,11 +114,11 @@ export default function ProfessionalDashboard() {
 
         {/* FLOATING CLOCK (No Box) */}
         <div className="flex flex-col items-end">
-          <div className="text-6xl font-black text-[#5B4B49]/80 tracking-tighter leading-none">
+          <div className="text-6xl font-black text-brand-charcoal/80 tracking-tighter leading-none">
             {time}
           </div>
           <div className="flex items-center gap-2 mt-2">
-            <span className="h-1.5 w-1.5 bg-[#F8AFA6] rounded-full animate-pulse" />
+            <span className="h-1.5 w-1.5 bg-brand-coral rounded-full animate-pulse" />
             <span className="text-xs font-bold uppercase tracking-widest opacity-40">System Active</span>
           </div>
         </div>
@@ -128,7 +128,7 @@ export default function ProfessionalDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
 
         {/* Progress Card */}
-        <GlassCard className="lg:col-span-8 flex flex-col md:flex-row items-center gap-8 bg-gradient-to-br from-white/80 to-[#FADCD9]/20">
+        <GlassCard className="lg:col-span-8 flex flex-col md:flex-row items-center gap-8 bg-gradient-to-br from-white/80 to-brand-border/20">
           <div className="relative h-40 w-40 flex-none">
             <ResponsiveContainer width="100%" height={160}>
               <PieChart>
@@ -153,13 +153,13 @@ export default function ProfessionalDashboard() {
           <div className="flex-1">
             <h3 className="text-xl font-black mb-2">Project Velocity</h3>
 
-            <p className="text-sm text-[#5B4B49]/70 mb-4 leading-relaxed">
-              You’ve completed <span className="font-bold text-[#F8AFA6]">{done}</span> out of{" "}
-              <span className="font-bold text-[#5B4B49]">{total}</span> tasks today.
+            <p className="text-sm text-brand-charcoal/70 mb-4 leading-relaxed">
+              You’ve completed <span className="font-bold text-brand-coral">{done}</span> out of{" "}
+              <span className="font-bold text-brand-charcoal">{total}</span> tasks today.
               {total > 0 && (
                 <>
                   {" "}That's{" "}
-                  <span className="font-bold text-[#F8AFA6]">
+                  <span className="font-bold text-brand-coral">
                     {percent}%
                   </span>{" "}
                   of your workload.
@@ -167,7 +167,7 @@ export default function ProfessionalDashboard() {
               )}
             </p>
 
-            <button className="bg-[#5B4B49] text-white px-6 py-2 rounded-2xl text-xs font-bold hover:bg-[#F8AFA6] transition-colors shadow-md">
+            <button className="bg-brand-charcoal text-white px-6 py-2 rounded-2xl text-xs font-bold hover:bg-brand-coral transition-colors shadow-md">
               View Report
             </button>
           </div>
@@ -226,7 +226,7 @@ function MoodTrackerCard() {
             onClick={() => setSelected(i)}
             className={`
                 w-12 h-12 rounded-full flex items-center justify-center transition-all 
-                ${selected === i ? "bg-white shadow-md scale-110 text-[#e79287]" : "text-[#5B4B49]/40 hover:bg-white/60 hover:scale-105"}
+                ${selected === i ? "bg-white shadow-md scale-110 text-[#e79287]" : "text-brand-charcoal/40 hover:bg-white/60 hover:scale-105"}
               `}
           >
             {m.icon}
@@ -244,7 +244,7 @@ function MoodTrackerCard() {
 
 function QuoteCard() {
   return (
-    <div className="bg-white rounded-2xl p-6 border-2 border-dashed border-[#FADCD9] flex items-center gap-4">
+    <div className="bg-white rounded-2xl p-6 border-2 border-dashed border-brand-border flex items-center gap-4">
       <span className="text-3xl">✨</span>
       <p className="text-sm font-medium italic leading-snug">"Progress is progress, no matter how small."</p>
     </div>
@@ -276,7 +276,7 @@ function TaskListFiller() {
             key={i}
             className="bg-white/80 p-4 rounded-2xl text-[13px] font-bold flex items-center gap-3 border shadow-sm"
           >
-            <div className="w-2 h-2 bg-[#F8AFA6] rounded-full" /> {note}
+            <div className="w-2 h-2 bg-brand-coral rounded-full" /> {note}
           </div>
         ))}
       </div>
@@ -290,7 +290,7 @@ function TaskListFiller() {
         />
         <button
           onClick={addNote}
-          className="bg-[#F8AFA6] text-white px-4 rounded-xl text-xs"
+          className="bg-brand-coral text-white px-4 rounded-xl text-xs"
         >
           Add
         </button>
@@ -344,7 +344,7 @@ function CalendarCardOldUpgraded() {
             className={`h-8 flex items-center justify-center text-[10px] font-bold rounded-xl transition-all
                 ${day === today
                 ? "bg-[#F8AFA6] text-white shadow-lg"
-                : "hover:bg-[#FDF8F5] text-[#5B4B49]"
+                : "hover:bg-brand-bg text-[#5B4B49]"
               }`}
           >
             {day}
