@@ -41,8 +41,11 @@ export default function UnifiedKanban() {
       <div className={`flex-1 p-8 transition-all duration-500 overflow-y-auto ${showAI ? 'pr-4' : 'pr-8'}`}>
         <header className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-black text-[#5B4B49]">Personal Board</h1>
-            <p className="text-[#F8AFA6] font-bold text-xs uppercase tracking-widest">Focus • Productivity • AI</p>
+            <h1 className="text-3xl font-black text-[#5B4B49]">Synergy Board</h1>
+            <div className="flex items-center gap-2">
+              <p className="text-[#F8AFA6] font-bold text-xs uppercase tracking-widest">Global Intelligence • Real-Time sync</p>
+              <span className="flex h-2 w-2 rounded-full bg-green-400 animate-pulse" title="Synergy Active"></span>
+            </div>
           </div>
           <div className="flex gap-3">
             <button

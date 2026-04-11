@@ -1,9 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { API_BASE } from "../config";
 import { AuthContext } from "../context/AuthContext";
+import { useSocket } from "../context/SocketContext";
 
 export default function useTasks() {
   const { user } = useContext(AuthContext);
+  const socket = useSocket();
   const [tasks, setTasks] = useState([]);
 
   // LOAD TASKS
@@ -29,6 +31,33 @@ export default function useTasks() {
     if (user) loadTasks();
     else setTasks([]);
   }, [user]);
+
+  // SOCKET LISTENERS
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("task-created", (newTask) => {
+      setTasks(prev => {
+        // Avoid duplicate if the user who created it is also listening
+        if (prev.find(t => t._id === newTask._id)) return prev;
+        return [...prev, newTask];
+      });
+    });
+
+    socket.on("task-updated", (updatedTask) => {
+      setTasks(prev => prev.map(t => (t._id === updatedTask._id ? updatedTask : t)));
+    });
+
+    socket.on("task-deleted", (deletedId) => {
+      setTasks(prev => prev.filter(t => t._id !== deletedId));
+    });
+
+    return () => {
+      socket.off("task-created");
+      socket.off("task-updated");
+      socket.off("task-deleted");
+    };
+  }, [socket]);
 
   // ADD TASK
   async function addTask(taskObj) {

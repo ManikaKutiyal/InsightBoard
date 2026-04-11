@@ -27,3 +27,20 @@ h4 {
 body {
   @apply bg-brand-bg text-brand-charcoal;
 }
+
+/* Premium Scrollbar */
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #FADCD9;
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #F8AFA6;
+  }
+}

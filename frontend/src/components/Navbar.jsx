@@ -25,20 +25,26 @@ export default function Navbar() {
   }, []);
   return (
     <nav className="bg-white shadow p-4 flex justify-between items-center">
-      
+
       {/* LEFT SIDE: LOGO + NAME */}
       <div className="flex items-center gap-3">
-        <img 
-          src="https://m.media-amazon.com/images/I/51Z0iXejQvL._AC_UF1000,1000_QL80_.jpg" 
-          alt="Logo" 
+        <img
+          src="https://m.media-amazon.com/images/I/51Z0iXejQvL._AC_UF1000,1000_QL80_.jpg"
+          alt="Logo"
           className="h-10 w-10 object-cover"
         />
         <span className="text-xl font-bold">InsightBoard</span>
       </div>
 
+      <div className="hidden md:flex items-center gap-8">
+        <Link to="/dashboard" className="text-sm font-bold text-[#5B4B49]/60 hover:text-[#5B4B49] transition-colors">Dashboard</Link>
+        <Link to="/kanban" className="text-sm font-bold text-[#5B4B49]/60 hover:text-[#5B4B49] transition-colors">Synergy Board</Link>
+        <Link to="/forge" className="text-[#F8AFA6] text-sm font-black uppercase tracking-widest hover:scale-105 transition-all">The Forge</Link>
+      </div>
+
       {/* RIGHT SIDE: AVATAR + DROPDOWN */}
       <div className="relative" ref={dropdownRef}>
-        
+
         {/* AVATAR */}
         <div
           onClick={() => setOpen(!open)}
@@ -54,8 +60,8 @@ export default function Navbar() {
         {/* DROPDOWN MENU */}
         {open && (
           <div className="absolute right-0 mt-3 w-40 bg-white shadow-lg rounded-md overflow-hidden border">
-            
-            <button 
+
+            <button
               className="flex items-center gap-2 w-full px-4 py-2 hover:bg-gray-100"
               onClick={() => navigate("/profile")}
             >
@@ -63,7 +69,7 @@ export default function Navbar() {
               <span>Edit Profile</span>
             </button>
 
-            <button 
+            <button
               className="flex items-center gap-2 w-full px-4 py-2 hover:bg-gray-100 text-red-500"
               onClick={handleLogout}
             >

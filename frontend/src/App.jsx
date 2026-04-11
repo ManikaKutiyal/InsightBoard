@@ -7,6 +7,8 @@ import AIChat from "./components/AIChat";
 import AuthPage from "./components/AuthPage";
 import Layout from "./components/Layout";
 import LandingPage from "./components/LandingPage";
+import ScholarlyForge from "./components/ScholarlyForge";
+import { SocketProvider } from "./context/SocketContext";
 
 export default function App() {
   const location = useLocation();
@@ -14,42 +16,53 @@ export default function App() {
   const hideNavbar = location.pathname === "/auth" || isLandingPage;
 
   return (
-    <div>
-      {!hideNavbar && <Navbar />}
+    <SocketProvider>
+      <div>
+        {!hideNavbar && <Navbar />}
 
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/auth" element={<AuthPage />} />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/auth" element={<AuthPage />} />
 
-        {/* RESTORED DASHBOARD */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Layout><Dashboard /></Layout>
-            </ProtectedRoute>
-          }
-        />
+          {/* RESTORED DASHBOARD */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Layout><Dashboard /></Layout>
+              </ProtectedRoute>
+            }
+          />
 
-        {/* KANBAN BOARD */}
-        <Route
-          path="/kanban"
-          element={
-            <ProtectedRoute>
-              <Layout><KanbanBoard /></Layout>
-            </ProtectedRoute>
-          }
-        />
+          {/* KANBAN BOARD */}
+          <Route
+            path="/kanban"
+            element={
+              <ProtectedRoute>
+                <Layout><KanbanBoard /></Layout>
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/assistant"
-          element={
-            <ProtectedRoute>
-              <Layout><AIChat /></Layout>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </div>
+          <Route
+            path="/assistant"
+            element={
+              <ProtectedRoute>
+                <Layout><AIChat /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/forge"
+            element={
+              <ProtectedRoute>
+                <Layout><ScholarlyForge /></Layout>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </div>
+    </SocketProvider>
   );
 }
+

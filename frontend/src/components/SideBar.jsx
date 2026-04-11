@@ -3,6 +3,7 @@ import { FaHome } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
 import { GoGoal } from "react-icons/go";
 import { IoSettings } from "react-icons/io5";
+import { FiUsers } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 
 const SidebarItem = ({ emoji, label, active }) => (
@@ -40,7 +41,13 @@ export default function Sidebar() {
         </Link>
 
 
-        <SidebarItem emoji={<GoGoal size={28} />} label="Goals" />
+        <Link to="/forge">
+          <SidebarItem
+            emoji={<FiUsers size={28} />}
+            label="Collab"
+            active={pathname === "/forge"}
+          />
+        </Link>
         <SidebarItem emoji={<IoSettings size={28} />} label="Settings" />
       </nav>
 
