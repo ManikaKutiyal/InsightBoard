@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import KanbanUser from "../models/KanbanUser.js";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 console.log("Auth routes loaded");
@@ -100,13 +101,12 @@ router.get("/me", auth, async (req, res) => {
 });
 
 // UPDATE PROFILE
-import auth from "../middleware/auth.js";
 router.put("/update", auth, async (req, res) => {
   try {
-    const { name, bio, subjects, theme } = req.body;
+    const { name, bio, subjects, theme, avatar } = req.body;
     const user = await KanbanUser.findByIdAndUpdate(
       req.user.id,
-      { name, bio, subjects, theme },
+      { name, bio, subjects, theme, avatar },
       { new: true }
     ).select("-password");
 

@@ -1,9 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiUser } from "react-icons/fi";
 import { FaRegEdit } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Navbar() {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -24,7 +27,7 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   return (
-    <nav className="bg-white/70 backdrop-blur-md border-b border-white/50 p-4 flex justify-between items-center sticky top-0 z-40">
+    <nav className="bg-brand-card backdrop-blur-md border-b border-brand-border p-4 flex justify-between items-center sticky top-0 z-40">
       {/* LEFT SIDE: LOGO + NAME */}
       <div className="flex items-center gap-3">
         <img
@@ -32,14 +35,14 @@ export default function Navbar() {
           alt="Logo"
           className="h-8 w-8 lg:h-10 lg:w-10 object-cover rounded-lg"
         />
-        <span className="text-lg lg:text-xl font-bold tracking-tight text-[#5B4B49]">InsightBoard</span>
+        <span className="text-lg lg:text-xl font-bold tracking-tight text-brand-charcoal">InsightBoard</span>
       </div>
 
       {/* DESKTOP LINKS */}
       <div className="hidden lg:flex items-center gap-8">
-        <Link to="/dashboard" className="text-xs font-bold text-[#5B4B49]/60 hover:text-[#5B4B49] transition-colors">DASHBOARD</Link>
-        <Link to="/kanban" className="text-xs font-bold text-[#5B4B49]/60 hover:text-[#5B4B49] transition-colors">SYNERGY BOARD</Link>
-        <Link to="/forge" className="text-[#F8AFA6] text-xs font-black uppercase tracking-widest hover:scale-105 transition-all">THE FORGE</Link>
+        <Link to="/dashboard" className="text-xs font-bold text-brand-charcoal/60 hover:text-brand-charcoal transition-colors">DASHBOARD</Link>
+        <Link to="/kanban" className="text-xs font-bold text-brand-charcoal/60 hover:text-brand-charcoal transition-colors">SYNERGY BOARD</Link>
+        <Link to="/forge" className="text-brand-coral text-xs font-black uppercase tracking-widest hover:scale-105 transition-all">THE FORGE</Link>
       </div>
 
       {/* RIGHT SIDE: AVATAR + DROPDOWN */}
@@ -48,21 +51,25 @@ export default function Navbar() {
         {/* AVATAR */}
         <div
           onClick={() => setOpen(!open)}
-          className="h-10 w-10 rounded-full bg-gray-300 cursor-pointer flex items-center justify-center"
+          className="h-10 w-10 rounded-full bg-brand-border cursor-pointer flex items-center justify-center overflow-hidden ring-2 ring-brand-border hover:ring-brand-coral transition-all"
         >
-          <img
-            src="https://i.pinimg.com/736x/8c/6d/db/8c6ddb5fe6600fcc4b183cb2ee228eb7.jpg"
-            alt="avatar"
-            className="h-10 w-10 rounded-full object-cover"
-          />
+          {user?.avatar ? (
+            <img
+              src={user.avatar}
+              alt="avatar"
+              className="h-10 w-10 object-cover"
+            />
+          ) : (
+            <FiUser className="text-brand-charcoal/40 text-xl" />
+          )}
         </div>
 
         {/* DROPDOWN MENU */}
         {open && (
-          <div className="absolute right-0 mt-3 w-40 bg-white shadow-lg rounded-md overflow-hidden border">
+          <div className="absolute right-0 mt-3 w-40 bg-brand-card shadow-lg rounded-md overflow-hidden border border-brand-border">
 
             <button
-              className="flex items-center gap-2 w-full px-4 py-2 hover:bg-gray-100"
+              className="flex items-center gap-2 w-full px-4 py-2 hover:bg-brand-bg transition-colors"
               onClick={() => navigate("/settings")}
             >
               <FaRegEdit className="text-green-600" />
@@ -70,7 +77,7 @@ export default function Navbar() {
             </button>
 
             <button
-              className="flex items-center gap-2 w-full px-4 py-2 hover:bg-gray-100 text-red-500"
+              className="flex items-center gap-2 w-full px-4 py-2 hover:bg-brand-bg text-red-500 transition-colors"
               onClick={handleLogout}
             >
               <FiLogOut />

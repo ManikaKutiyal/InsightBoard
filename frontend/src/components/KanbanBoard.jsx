@@ -50,7 +50,7 @@ export default function UnifiedKanban() {
           <div className="flex gap-3">
             <button
               onClick={() => setShowAI(!showAI)}
-              className={`p-3 rounded-2xl transition-all ${showAI ? 'bg-brand-coral text-white' : 'bg-white text-brand-coral border border-brand-border'}`}
+              className={`p-3 rounded-2xl transition-all ${showAI ? 'bg-brand-coral text-white' : 'bg-brand-card text-brand-coral border border-brand-border'}`}
             >
               <FiCpu size={20} />
             </button>
@@ -71,7 +71,7 @@ export default function UnifiedKanban() {
                 <div className="flex items-center gap-2 mb-4 px-2">
                   <span className="text-xl">{emoji}</span>
                   <h2 className="font-black uppercase text-xs tracking-[0.2em] text-brand-charcoal/50">{label}</h2>
-                  <span className="ml-auto bg-white px-2 py-0.5 rounded-lg text-[10px] font-bold border border-brand-border text-brand-coral">
+                  <span className="ml-auto bg-brand-card px-2 py-0.5 rounded-lg text-[10px] font-bold border border-brand-border text-brand-coral">
                     {tasks.filter(t => t.status === key).length}
                   </span>
                 </div>
@@ -119,7 +119,7 @@ export default function UnifiedKanban() {
 
       {/* AI ASSISTANT PANEL */}
       {showAI && (
-        <aside className="fixed inset-0 lg:relative lg:inset-auto z-50 lg:z-0 w-full lg:w-96 lg:border-l border-brand-border/50 bg-white lg:bg-white/50 backdrop-blur-3xl lg:backdrop-blur-xl p-6 flex flex-col animate-in slide-in-from-right duration-300">
+        <aside className="fixed inset-0 lg:relative lg:inset-auto z-50 lg:z-0 w-full lg:w-96 lg:border-l border-brand-border/50 bg-brand-card lg:bg-brand-card/50 backdrop-blur-3xl lg:backdrop-blur-xl p-6 flex flex-col animate-in slide-in-from-right duration-300">
           <div className="flex justify-between items-center mb-6 lg:hidden">
             <h2 className="text-xl font-black text-brand-charcoal">Synergy AI</h2>
             <button

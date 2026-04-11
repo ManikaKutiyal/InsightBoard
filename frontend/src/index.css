@@ -33,21 +33,30 @@
   --sidebar-bg: #FDF8F5;
 }
 
-.theme-dark {
-  --bg-app: #0A0A0A;
-  --bg-card: rgba(26, 26, 26, 0.82);
-  --text-main: #FDF8F5;
-  --text-accent: #A5B4FC;
-  --border-main: rgba(255, 255, 255, 0.05);
-  --sidebar-bg: #111111;
+.theme-mint {
+  --bg-app: #F2FAF5;
+  --bg-card: rgba(255, 255, 255, 0.6);
+  --text-main: #3E4A3E;
+  --text-accent: #88D4AB;
+  --border-main: rgba(136, 212, 171, 0.4);
+  --sidebar-bg: #F2FAF5;
+}
+
+.theme-azure {
+  --bg-app: #F0F7FF;
+  --bg-card: rgba(255, 255, 255, 0.6);
+  --text-main: #3B4A5A;
+  --text-accent: #93C5FD;
+  --border-main: rgba(147, 197, 253, 0.4);
+  --sidebar-bg: #F0F7FF;
 }
 
 .theme-sunset {
   --bg-app: #FFF1EB;
-  --bg-card: rgba(255, 255, 255, 0.88);
+  --bg-card: rgba(255, 255, 255, 0.82);
   --text-main: #2D3748;
   --text-accent: #F6AD55;
-  --border-main: rgba(254, 215, 215, 0.9);
+  --border-main: rgba(254, 215, 215, 0.8);
   --sidebar-bg: #FFF5F5;
 }
 

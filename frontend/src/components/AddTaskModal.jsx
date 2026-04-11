@@ -136,7 +136,7 @@
 //     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
 //       {/* Backdrop */}
 //       <div className="absolute inset-0 bg-[#5B4B49]/20 backdrop-blur-sm" onClick={closeModal} />
-      
+
 //       {/* Modal Card */}
 //       <div className="relative bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl border border-white">
 //         <button onClick={closeModal} className="absolute top-6 right-6 text-[#5B4B49]/30 hover:text-[#F8AFA6]">
@@ -235,22 +235,22 @@ export default function AddTaskModal({ addTask, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl w-[350px] shadow-xl">
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 backdrop-blur-sm">
+      <div className="bg-brand-card p-8 rounded-3xl w-[400px] shadow-2xl border border-brand-border">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="font-bold text-lg">Add New Task</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-black">✕</button>
+          <h2 className="font-black text-xl text-brand-charcoal">Create Task</h2>
+          <button onClick={onClose} className="text-brand-charcoal/30 hover:text-brand-coral">✕</button>
         </div>
 
         <input
           placeholder="Task title"
-          className="border p-2 w-full mb-2 rounded"
+          className="bg-brand-bg border-none p-3 w-full mb-3 rounded-2xl text-sm font-bold text-brand-charcoal outline-none ring-2 ring-transparent focus:ring-brand-coral/20 transition-all"
           value={title}
           onChange={e => setTitle(e.target.value)}
         />
 
         <select
-          className="border p-2 w-full mb-2 rounded"
+          className="bg-brand-bg border-none p-3 w-full mb-3 rounded-2xl text-xs font-bold text-brand-charcoal outline-none"
           value={priority}
           onChange={e => setPriority(e.target.value)}
         >
@@ -261,38 +261,39 @@ export default function AddTaskModal({ addTask, onClose }) {
 
         <textarea
           placeholder="Description (optional)"
-          className="border p-2 w-full mb-2 rounded"
+          className="bg-brand-bg border-none p-3 w-full mb-3 rounded-2xl text-sm font-medium text-brand-charcoal outline-none resize-none"
+          rows="3"
           value={description}
           onChange={e => setDescription(e.target.value)}
         />
 
-        <input
-          type="date"
-          className="border p-2 w-full mb-2 rounded"
-          value={dueDate}
-          onChange={e => setDueDate(e.target.value)}
-        />
-
-        <input
-          type="number"
-          placeholder="Story Points"
-          className="border p-2 w-full mb-2 rounded"
-          value={storyPoints}
-          onChange={e => setStoryPoints(e.target.value)}
-        />
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          <input
+            type="date"
+            className="bg-brand-bg border-none p-3 rounded-2xl text-xs font-bold text-brand-charcoal outline-none"
+            value={dueDate}
+            onChange={e => setDueDate(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Story Points"
+            className="bg-brand-bg border-none p-3 rounded-2xl text-xs font-bold text-brand-charcoal outline-none"
+            value={storyPoints}
+            onChange={e => setStoryPoints(e.target.value)}
+          />
+        </div>
 
         <input
           placeholder="Tags (comma separated)"
-          className="border p-2 w-full mb-4 rounded"
+          className="bg-brand-bg border-none p-3 w-full mb-6 rounded-2xl text-xs font-bold text-brand-charcoal outline-none"
           value={tags}
           onChange={e => setTags(e.target.value)}
         />
-
         <button
-          className="bg-[#5B4B49] text-white px-4 py-2 rounded w-full font-bold hover:bg-[#F8AFA6] transition-all"
+          className="bg-brand-charcoal text-white py-4 rounded-2xl w-full font-black uppercase tracking-widest shadow-lg hover:bg-brand-coral transition-all active:scale-95"
           onClick={handleAdd}
         >
-          Add Task
+          Add to Board
         </button>
       </div>
     </div>

@@ -15,7 +15,7 @@ import useTasks from "../data/useTasks";
 // --- REFINED SUB-COMPONENTS ---
 
 const GlassCard = ({ children, className = "" }) => (
-  <div className={`bg-white/70 backdrop-blur-md border border-white/50 rounded-[2.5rem] p-6 shadow-sm hover:shadow-md transition-shadow ${className}`}>
+  <div className={`bg-brand-card backdrop-blur-md border border-brand-border rounded-[2.5rem] p-6 shadow-sm hover:shadow-md transition-shadow ${className}`}>
     {children}
   </div>
 );
@@ -92,7 +92,7 @@ export default function ProfessionalDashboard() {
         <div className="flex items-center gap-4 lg:gap-6">
           <div className="relative shrink-0">
             <img
-              src="https://i.pinimg.com/736x/8c/6d/db/8c6ddb5fe6600fcc4b183cb2ee228eb7.jpg"
+              src={user?.avatar || "https://i.pinimg.com/736x/8c/6d/db/8c6ddb5fe6600fcc4b183cb2ee228eb7.jpg"}
               alt="avatar"
               className="h-16 w-16 lg:h-20 lg:w-20 rounded-2xl object-cover ring-4 ring-white shadow-xl"
             />
@@ -128,7 +128,7 @@ export default function ProfessionalDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
 
         {/* Progress Card */}
-        <GlassCard className="lg:col-span-8 flex flex-col md:flex-row items-center gap-8 bg-gradient-to-br from-white/80 to-brand-border/20">
+        <GlassCard className="lg:col-span-8 flex flex-col md:flex-row items-center gap-8 bg-gradient-to-br from-brand-card to-brand-border/10">
           <div className="relative h-40 w-40 flex-none">
             <ResponsiveContainer width="100%" height={160}>
               <PieChart>
@@ -172,9 +172,8 @@ export default function ProfessionalDashboard() {
             </button>
           </div>
         </GlassCard>
-        {/* pablo */}
         {/* Calendar Card */}
-        <GlassCard className="lg:col-span-4 bg-white">
+        <GlassCard className="lg:col-span-4 bg-brand-card">
           <CalendarCardOldUpgraded />
         </GlassCard>
       </div>
@@ -213,20 +212,20 @@ function MoodTrackerCard() {
   ];
 
   return (
-    <GlassCard className="bg-[#EBF5EE]/50 border-[#C7E3D0]/50">
+    <GlassCard className="bg-brand-card border-brand-border">
       <h3 className="text-sm font-black uppercase tracking-widest opacity-60 mb-6">
         Current Vibe
       </h3>
 
       {/* Mood Buttons */}
-      <div className="flex justify-between items-center bg-white/40 p-2 rounded-2xl border border-white">
+      <div className="flex justify-between items-center bg-brand-bg/40 p-2 rounded-2xl border border-brand-border">
         {moods.map((m, i) => (
           <button
             key={i}
             onClick={() => setSelected(i)}
             className={`
                 w-12 h-12 rounded-full flex items-center justify-center transition-all 
-                ${selected === i ? "bg-white shadow-md scale-110 text-[#e79287]" : "text-brand-charcoal/40 hover:bg-white/60 hover:scale-105"}
+                ${selected === i ? "bg-brand-card shadow-md scale-110 text-brand-coral" : "text-brand-charcoal/40 hover:bg-brand-card/60 hover:scale-105"}
               `}
           >
             {m.icon}
@@ -235,7 +234,7 @@ function MoodTrackerCard() {
       </div>
 
       {/* Dynamic Mood Label */}
-      <p className="mt-6 text-xs font-bold italic text-center text-[#e79287]/70">
+      <p className="mt-6 text-xs font-bold italic text-center text-brand-coral/70">
         “Today you're feeling {moods[selected].label.toLowerCase()}.”
       </p>
     </GlassCard>
@@ -244,7 +243,7 @@ function MoodTrackerCard() {
 
 function QuoteCard() {
   return (
-    <div className="bg-white rounded-2xl p-6 border-2 border-dashed border-brand-border flex items-center gap-4">
+    <div className="bg-brand-card rounded-2xl p-6 border-2 border-dashed border-brand-border flex items-center gap-4">
       <span className="text-3xl">✨</span>
       <p className="text-sm font-medium italic leading-snug">"Progress is progress, no matter how small."</p>
     </div>
@@ -267,14 +266,14 @@ function TaskListFiller() {
   };
 
   return (
-    <GlassCard className="bg-[#F3F0FF]/50 border-[#DCD6F7]/50">
+    <GlassCard className="bg-brand-card border-brand-border">
       <h3 className="font-black mb-4 text-sm uppercase opacity-60">Quick Notes ✏️</h3>
 
       <div className="space-y-3">
         {notes.map((note, i) => (
           <div
             key={i}
-            className="bg-white/80 p-4 rounded-2xl text-[13px] font-bold flex items-center gap-3 border shadow-sm"
+            className="bg-brand-bg/80 p-4 rounded-2xl text-[13px] font-bold flex items-center gap-3 border border-brand-border shadow-sm"
           >
             <div className="w-2 h-2 bg-brand-coral rounded-full" /> {note}
           </div>
@@ -286,7 +285,7 @@ function TaskListFiller() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Add note..."
-          className="flex-1 px-3 py-2 rounded-xl text-sm border"
+          className="flex-1 px-3 py-2 rounded-xl text-sm border border-brand-border bg-brand-bg"
         />
         <button
           onClick={addNote}
@@ -314,13 +313,13 @@ function CalendarCardOldUpgraded() {
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
   return (
-    <div className="bg-white p-3">
+    <div className="bg-brand-card p-3">
       {/* HEADER (new, small, clean) */}
       <div className="flex justify-between items-center mb-4">
-        <h3 className="font-black text-lg text-[#5B4B49]">
+        <h3 className="font-black text-lg text-brand-charcoal">
           {now.toLocaleString("default", { month: "long" })}
         </h3>
-        <span className="text-xs font-bold text-[#F8AFA6] bg-[#FADCD9]/30 px-2 py-1 rounded-lg">
+        <span className="text-xs font-bold text-brand-coral bg-brand-coral/10 px-2 py-1 rounded-lg">
           {year}
         </span>
       </div>

@@ -65,31 +65,31 @@ export default function TaskCard({ task, moveTask, deleteTask }) {
   };
 
   return (
-    <div className="group bg-white rounded-[2rem] p-5 shadow-sm border border-transparent hover:border-[#FADCD9] hover:shadow-xl transition-all duration-300">
+    <div className="group bg-brand-card rounded-[2rem] p-5 shadow-sm border border-transparent hover:border-brand-coral hover:shadow-xl transition-all duration-300">
       <div className="flex justify-between items-start mb-3">
         <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${priorityStyles[task.priority]}`}>
           {task.priority}
         </span>
-        <button onClick={() => deleteTask(task._id)} className="opacity-0 group-hover:opacity-100 text-[#5B4B49]/20 hover:text-red-400 transition-all text-sm">🗑</button>
+        <button onClick={() => deleteTask(task._id)} className="opacity-0 group-hover:opacity-100 text-brand-charcoal/20 hover:text-red-400 transition-all text-sm">🗑</button>
       </div>
 
-      <h3 className="font-bold text-[#5B4B49] leading-tight mb-2">{task.title}</h3>
-      {task.description && <p className="text-xs text-[#5B4B49]/60 line-clamp-2 mb-4 leading-relaxed">{task.description}</p>}
+      <h3 className="font-bold text-brand-charcoal leading-tight mb-2">{task.title}</h3>
+      {task.description && <p className="text-xs text-brand-charcoal/60 line-clamp-2 mb-4 leading-relaxed">{task.description}</p>}
 
       <div className="flex items-center gap-3 mb-4">
         {task.tags?.map((tag, i) => (
-          <span key={i} className="text-[9px] font-bold text-[#F8AFA6] bg-[#F8AFA6]/5 px-2 py-0.5 rounded-md italic">#{tag}</span>
+          <span key={i} className="text-[9px] font-bold text-brand-coral bg-brand-coral/5 px-2 py-0.5 rounded-md italic">#{tag}</span>
         ))}
       </div>
 
-      <div className="flex items-center justify-between pt-4 border-t border-[#FDF8F5]">
+      <div className="flex items-center justify-between pt-4 border-t border-brand-border/30">
         <div className="flex -space-x-2">
-          <button onClick={() => moveTask(task._id, "prev")} className="w-8 h-8 rounded-full bg-[#FDF8F5] flex items-center justify-center text-[#5B4B49] hover:bg-[#F8AFA6] hover:text-white transition-all text-xs">←</button>
-          <button onClick={() => moveTask(task._id, "next")} className="w-8 h-8 rounded-full bg-[#FDF8F5] flex items-center justify-center text-[#5B4B49] hover:bg-[#F8AFA6] hover:text-white transition-all text-xs">→</button>
+          <button onClick={() => moveTask(task._id, "prev")} className="w-8 h-8 rounded-full bg-brand-bg flex items-center justify-center text-brand-charcoal hover:bg-brand-coral hover:text-white transition-all text-xs">←</button>
+          <button onClick={() => moveTask(task._id, "next")} className="w-8 h-8 rounded-full bg-brand-bg flex items-center justify-center text-brand-charcoal hover:bg-brand-coral hover:text-white transition-all text-xs">→</button>
         </div>
         {task.storyPoints > 0 && (
-          <div className="flex items-center gap-1 text-[10px] font-black text-[#5B4B49]/40">
-            <span className="text-[#F8AFA6]">⭐</span> {task.storyPoints} SP
+          <div className="flex items-center gap-1 text-[10px] font-black text-brand-charcoal/40">
+            <span className="text-brand-coral">⭐</span> {task.storyPoints} SP
           </div>
         )}
       </div>

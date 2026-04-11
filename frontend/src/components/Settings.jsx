@@ -1,20 +1,20 @@
-import React, { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 import { API_BASE } from "../config";
 import { FiUser, FiCpu, FiShield, FiSave, FiSun, FiMoon, FiCloud } from "react-icons/fi";
 
 const SettingsCard = ({ title, subtitle, children }) => (
-    <div className="bg-white/70 backdrop-blur-md border border-white/50 rounded-[2.5rem] p-8 shadow-sm mb-8">
+    <div className="bg-brand-card backdrop-blur-md border border-brand-border rounded-[2.5rem] p-8 shadow-sm mb-8">
         <div className="mb-6">
-            <h3 className="text-xl font-black text-[#5B4B49]">{title}</h3>
-            <p className="text-xs font-bold text-[#F8AFA6] uppercase tracking-widest mt-1">{subtitle}</p>
+            <h3 className="text-xl font-black text-brand-charcoal">{title}</h3>
+            <p className="text-xs font-bold text-brand-coral uppercase tracking-widest mt-1">{subtitle}</p>
         </div>
         {children}
     </div>
 );
 
 export default function Settings() {
-    const { user, updateUser } = useContext(AuthContext);
+    const { user, updateUser } = useAuth();
     const [activeTab, setActiveTab] = useState("profile");
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState({ type: null, message: "" });
@@ -23,7 +23,8 @@ export default function Settings() {
         name: user?.name || "",
         bio: user?.bio || "",
         subjects: user?.subjects || [],
-        theme: user?.theme || "cream"
+        theme: user?.theme || "cream",
+        avatar: user?.avatar || ""
     });
 
     useEffect(() => {
@@ -31,7 +32,8 @@ export default function Settings() {
             name: user?.name || "",
             bio: user?.bio || "",
             subjects: user?.subjects || [],
-            theme: user?.theme || "cream"
+            theme: user?.theme || "cream",
+            avatar: user?.avatar || ""
         });
     }, [user]);
 
@@ -66,6 +68,23 @@ export default function Settings() {
         }));
     };
 
+    const handleAvatarChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            if (file.size > 2 * 1024 * 1024) {
+                setStatus({ type: "error", message: "File too large (Max 2MB)" });
+                return;
+            }
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData(prev => ({ ...prev, avatar: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const defaultAvatar = "https://i.pinimg.com/736x/8c/6d/db/8c6ddb5fe6600fcc4b183cb2ee228eb7.jpg";
+
     const tabs = [
         { id: "profile", label: "Identity", icon: <FiUser /> },
         { id: "academic", label: "Intelligence", icon: <FiCpu /> },
@@ -75,7 +94,8 @@ export default function Settings() {
 
     const themes = [
         { id: "cream", label: "Classic Cream", icon: <FiSun />, color: "bg-[#FDF8F5]" },
-        { id: "dark", label: "Deep Research", icon: <FiMoon />, color: "bg-[#2D2D2D]" },
+        { id: "mint", label: "Mint Whisper", icon: <FiCloud />, color: "bg-[#F2FAF5]" },
+        { id: "azure", label: "Arctic Azure", icon: <FiCloud />, color: "bg-[#F0F7FF]" },
         { id: "sunset", label: "Sunset Synergy", icon: <FiCloud />, color: "bg-gradient-to-br from-orange-100 to-rose-100" },
     ];
 
@@ -84,8 +104,8 @@ export default function Settings() {
             <header className="flex justify-between items-end">
                 <div className="flex items-center gap-8">
                     <div>
-                        <h1 className="text-3xl font-black text-[#5B4B49]">System Settings</h1>
-                        <p className="text-[#F8AFA6] font-bold text-xs uppercase tracking-widest">Configure your Insight Environment</p>
+                        <h1 className="text-3xl font-black text-brand-charcoal">System Settings</h1>
+                        <p className="text-brand-coral font-bold text-xs uppercase tracking-widest">Configure your Insight Environment</p>
                     </div>
                     {status.message && (
                         <div className={`px-6 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest animate-in fade-in zoom-in slide-in-from-left-4 duration-300
@@ -98,7 +118,7 @@ export default function Settings() {
                 <button
                     onClick={handleSave}
                     disabled={loading}
-                    className="bg-[#5B4B49] text-white px-8 py-3 rounded-2xl font-bold text-sm shadow-lg hover:bg-[#F8AFA6] transition-all flex items-center gap-3 active:scale-95 disabled:opacity-50"
+                    className="bg-brand-charcoal text-white px-8 py-3 rounded-2xl font-bold text-sm shadow-lg hover:bg-brand-coral transition-all flex items-center gap-3 active:scale-95 disabled:opacity-50"
                 >
                     <FiSave /> {loading ? "Syncing..." : "Save Changes"}
                 </button>
@@ -113,8 +133,8 @@ export default function Settings() {
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-4 px-6 py-3 lg:py-4 rounded-2xl font-bold text-xs lg:text-sm transition-all whitespace-nowrap
                 ${activeTab === tab.id
-                                    ? "bg-[#5B4B49] text-white shadow-lg"
-                                    : "bg-white lg:bg-transparent text-[#5B4B49]/50 hover:bg-white hover:text-[#5B4B49]"
+                                    ? "bg-brand-charcoal text-white shadow-lg"
+                                    : "bg-brand-card lg:bg-transparent text-brand-charcoal/50 hover:bg-brand-card hover:text-brand-charcoal"
                                 }`}
                         >
                             <span className="text-lg">{tab.icon}</span>
@@ -129,36 +149,53 @@ export default function Settings() {
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <SettingsCard title="Scholar Profile" subtitle="How others see you in the Collab Hub">
                                 <div className="space-y-6">
-                                    <div className="flex items-center gap-6 pb-6 border-b border-[#FADCD9]/30">
-                                        <img
-                                            src="https://i.pinimg.com/736x/8c/6d/db/8c6ddb5fe6600fcc4b183cb2ee228eb7.jpg"
-                                            className="h-20 w-20 rounded-3xl object-cover ring-4 ring-[#FADCD9]"
-                                        />
+                                    <div className="flex items-center gap-6 pb-6 border-b border-brand-border/30">
+                                        <div className="relative group">
+                                            <img
+                                                src={formData.avatar || defaultAvatar}
+                                                className="h-24 w-24 rounded-3xl object-cover ring-4 ring-brand-border shadow-lg transition-transform group-hover:scale-105"
+                                            />
+                                            <div className="absolute inset-0 bg-black/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                                <FiUser className="text-white text-2xl" />
+                                            </div>
+                                        </div>
                                         <div className="flex flex-col gap-2">
-                                            <button className="bg-[#FDF8F5] text-[#F8AFA6] border border-[#FADCD9] px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-[#F8AFA6] hover:text-white transition-all">
-                                                Change Avatar
-                                            </button>
-                                            <p className="text-[10px] text-[#5B4B49]/40 font-bold uppercase tracking-wider text-center">SVG / PNG • MAX 2MB</p>
+                                            <input
+                                                type="file"
+                                                id="avatar-upload"
+                                                className="hidden"
+                                                accept="image/*"
+                                                onChange={handleAvatarChange}
+                                            />
+                                            <label
+                                                htmlFor="avatar-upload"
+                                                className="bg-brand-bg text-brand-coral border border-brand-border px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-coral hover:text-white transition-all cursor-pointer shadow-sm text-center"
+                                            >
+                                                Upload New Avatar
+                                            </label>
+                                            <p className="text-[9px] text-brand-charcoal/40 font-bold uppercase tracking-wider text-center flex items-center justify-center gap-1">
+                                                <FiShield className="text-[10px]" /> Verified Scan • MAX 2MB
+                                            </p>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 gap-6">
                                         <div>
-                                            <label className="block text-[10px] font-black uppercase tracking-widest text-[#5B4B49]/40 mb-2 px-1">Display Name</label>
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-brand-charcoal/40 mb-2 px-1">Display Name</label>
                                             <input
                                                 type="text"
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                className="w-full bg-white border-2 border-transparent focus:border-[#FADCD9] outline-none px-6 py-3 rounded-2xl text-sm font-medium transition-all shadow-sm"
+                                                className="w-full bg-brand-bg border-2 border-transparent focus:border-brand-border outline-none px-6 py-3 rounded-2xl text-sm font-medium transition-all shadow-sm text-brand-charcoal"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-[10px] font-black uppercase tracking-widest text-[#5B4B49]/40 mb-2 px-1">Academic Bio</label>
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-brand-charcoal/40 mb-2 px-1">Academic Bio</label>
                                             <textarea
                                                 rows="3"
                                                 value={formData.bio}
                                                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                                                className="w-full bg-white border-2 border-transparent focus:border-[#FADCD9] outline-none px-6 py-3 rounded-2xl text-sm font-medium transition-all shadow-sm resize-none"
+                                                className="w-full bg-brand-bg border-2 border-transparent focus:border-brand-border outline-none px-6 py-3 rounded-2xl text-sm font-medium transition-all shadow-sm resize-none text-brand-charcoal"
                                                 placeholder="Tell the world about your research focus..."
                                             />
                                         </div>
@@ -172,7 +209,7 @@ export default function Settings() {
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <SettingsCard title="Intelligence Focus" subtitle="Customize AI diagnostics based on your subjects">
                                 <div className="space-y-6">
-                                    <p className="text-sm font-medium text-[#5B4B49]/70 leading-relaxed">
+                                    <p className="text-sm font-medium text-brand-charcoal/70 leading-relaxed">
                                         Selecting subjects helps the **Synergy Engine** prioritize relevant tasks and analytics.
                                     </p>
                                     <div className="flex flex-wrap gap-3">
@@ -182,8 +219,8 @@ export default function Settings() {
                                                 onClick={() => toggleSubject(subject)}
                                                 className={`px-4 py-2 rounded-xl text-xs font-black transition-all border-2 
                                 ${formData.subjects.includes(subject)
-                                                        ? "bg-[#F8AFA6] border-[#F8AFA6] text-white shadow-md shadow-[#F8AFA6]/30"
-                                                        : "bg-white border-[#FADCD9] text-[#F8AFA6] hover:border-[#F8AFA6]"}`}
+                                                        ? "bg-brand-coral border-brand-coral text-white shadow-md shadow-brand-coral/30"
+                                                        : "bg-brand-card border-brand-border text-brand-coral hover:border-brand-coral"}`}
                                             >
                                                 {subject}
                                             </button>
@@ -211,12 +248,12 @@ export default function Settings() {
                                                     {t.icon}
                                                 </div>
                                                 <div>
-                                                    <h4 className="font-black text-[#5B4B49]">{t.label}</h4>
-                                                    <p className="text-[10px] font-bold text-[#5B4B49]/30 uppercase tracking-widest">Interface Mode</p>
+                                                    <h4 className="font-black text-brand-charcoal">{t.label}</h4>
+                                                    <p className="text-[10px] font-bold text-brand-charcoal/30 uppercase tracking-widest">Interface Mode</p>
                                                 </div>
                                             </div>
-                                            <div className={`h-6 w-6 rounded-full border-4 transition-all ${formData.theme === t.id ? "border-[#F8AFA6] bg-[#F8AFA6]" : "border-[#FADCD9]"}`}>
-                                                {formData.theme === t.id && <div className="h-full w-full bg-white rounded-full scale-50" />}
+                                            <div className={`h-6 w-6 rounded-full border-4 transition-all ${formData.theme === t.id ? "border-brand-coral bg-brand-coral" : "border-brand-border"}`}>
+                                                {formData.theme === t.id && <div className="h-full w-full bg-brand-card rounded-full scale-50" />}
                                             </div>
                                         </div>
                                     ))}
@@ -230,12 +267,12 @@ export default function Settings() {
                             <SettingsCard title="Security & Access" subtitle="Manage your scholarly credentials">
                                 <div className="space-y-6">
                                     <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-[#5B4B49]/40 mb-2 px-1">Registered Email</label>
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-brand-charcoal/40 mb-2 px-1">Registered Email</label>
                                         <input
                                             type="text"
                                             disabled
                                             value={user?.email || ""}
-                                            className="w-full bg-[#FDF8F5] border-2 border-transparent px-6 py-3 rounded-2xl text-sm font-medium opacity-50 cursor-not-allowed shadow-inner"
+                                            className="w-full bg-brand-bg border-2 border-transparent px-6 py-3 rounded-2xl text-sm font-medium opacity-50 cursor-not-allowed shadow-inner text-brand-charcoal"
                                         />
                                     </div>
                                     <div className="pt-4">
