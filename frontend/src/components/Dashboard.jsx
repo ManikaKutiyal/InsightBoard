@@ -14,13 +14,6 @@ import useTasks from "../data/useTasks";
 // ProfessionalDashboard
 // --- REFINED SUB-COMPONENTS ---
 
-const SidebarItem = ({ emoji, label, active = false }) => (
-  <div className={`group flex flex-col items-center justify-center w-20 h-20 mb-4 cursor-pointer rounded-3xl transition-all duration-300 ${active ? 'bg-[#F8AFA6] text-white shadow-lg' : 'text-[#5B4B49] hover:bg-white'}`}>
-    <span className="text-2xl mb-1">{emoji}</span>
-    <span className="text-[10px] font-bold uppercase tracking-widest">{label}</span>
-  </div>
-);
-
 const GlassCard = ({ children, className = "" }) => (
   <div className={`bg-white/70 backdrop-blur-md border border-white/50 rounded-[2.5rem] p-6 shadow-sm hover:shadow-md transition-shadow ${className}`}>
     {children}
@@ -93,120 +86,116 @@ export default function ProfessionalDashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FDF8F5] flex text-[#5B4B49] font-sans selection:bg-[#F8AFA6]/30">
-
-      <main className="flex-1 p-8 lg:p-12 overflow-y-auto">
-
-        {/* HEADER SECTION: Welcome + Floating Clock */}
-        <header className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <img
-                src="https://i.pinimg.com/736x/8c/6d/db/8c6ddb5fe6600fcc4b183cb2ee228eb7.jpg"
-                alt="avatar"
-                className="h-20 w-20 rounded-2xl object-cover ring-4 ring-white shadow-xl"
-              />
-              <div className="absolute -bottom-1 -right-1 bg-green-400 w-5 h-5 rounded-full border-4 border-[#FDF8F5]"></div>
-            </div>
-            <div>
-              <p className="text-[#F8AFA6] font-bold text-sm uppercase tracking-tighter mb-1">
-                {location} • {weekday}
-              </p>
-
-              <h1 className="text-4xl font-black tracking-tight">
-                Welcome,{" "}
-                <span className="text-[#F8AFA6]">
-                  {user?.name || "Guest"}
-                </span>
-              </h1>
-            </div>
+    <div className="w-full text-[#5B4B49] font-sans selection:bg-[#F8AFA6]/30">
+      {/* HEADER SECTION: Welcome + Floating Clock */}
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 lg:mb-12 gap-6">
+        <div className="flex items-center gap-4 lg:gap-6">
+          <div className="relative shrink-0">
+            <img
+              src="https://i.pinimg.com/736x/8c/6d/db/8c6ddb5fe6600fcc4b183cb2ee228eb7.jpg"
+              alt="avatar"
+              className="h-16 w-16 lg:h-20 lg:w-20 rounded-2xl object-cover ring-4 ring-white shadow-xl"
+            />
+            <div className="absolute -bottom-1 -right-1 bg-green-400 w-4 h-4 lg:w-5 lg:h-5 rounded-full border-4 border-[#FDF8F5]"></div>
           </div>
+          <div>
+            <p className="text-[#F8AFA6] font-bold text-[10px] lg:text-sm uppercase tracking-tighter mb-1">
+              {location} • {weekday}
+            </p>
 
-          {/* FLOATING CLOCK (No Box) */}
-          <div className="flex flex-col items-end">
-            <div className="text-6xl font-black text-[#5B4B49]/80 tracking-tighter leading-none">
-              {time}
-            </div>
-            <div className="flex items-center gap-2 mt-2">
-              <span className="h-1.5 w-1.5 bg-[#F8AFA6] rounded-full animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-widest opacity-40">System Active</span>
-            </div>
+            <h1 className="text-2xl lg:text-4xl font-black tracking-tight">
+              Welcome,{" "}
+              <span className="text-[#F8AFA6]">
+                {user?.name || "Guest"}
+              </span>
+            </h1>
           </div>
-        </header>
-
-        {/* TOP ROW: Stats & Mini Cal */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-
-          {/* Progress Card */}
-          <GlassCard className="lg:col-span-8 flex flex-col md:flex-row items-center gap-8 bg-gradient-to-br from-white/80 to-[#FADCD9]/20">
-            <div className="relative h-40 w-40 flex-none">
-              <ResponsiveContainer width="100%" height={160}>
-                <PieChart>
-                  {/* quick */}
-                  <Pie
-                    data={chartData}
-                    innerRadius={50}
-                    outerRadius={65}
-                    dataKey="value"
-                    stroke="none"
-                  >
-                    <Cell fill="#F8AFA6" />
-                    <Cell fill="#5B4B49" fillOpacity={0.05} />
-                  </Pie>
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-2xl font-black">{percent}%</span>
-                <span className="text-[10px] uppercase font-bold opacity-40">Done</span>
-              </div>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-black mb-2">Project Velocity</h3>
-
-              <p className="text-sm text-[#5B4B49]/70 mb-4 leading-relaxed">
-                You’ve completed <span className="font-bold text-[#F8AFA6]">{done}</span> out of{" "}
-                <span className="font-bold text-[#5B4B49]">{total}</span> tasks today.
-                {total > 0 && (
-                  <>
-                    {" "}That's{" "}
-                    <span className="font-bold text-[#F8AFA6]">
-                      {percent}%
-                    </span>{" "}
-                    of your workload.
-                  </>
-                )}
-              </p>
-
-              <button className="bg-[#5B4B49] text-white px-6 py-2 rounded-2xl text-xs font-bold hover:bg-[#F8AFA6] transition-colors shadow-md">
-                View Report
-              </button>
-            </div>
-          </GlassCard>
-          {/* pablo */}
-          {/* Calendar Card */}
-          <GlassCard className="lg:col-span-4 bg-white">
-            <CalendarCardOldUpgraded />
-          </GlassCard>
         </div>
 
-        {/* BOTTOM ROW: Widgets */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* FLOATING CLOCK (No Box) */}
+        <div className="flex flex-col items-end">
+          <div className="text-6xl font-black text-[#5B4B49]/80 tracking-tighter leading-none">
+            {time}
+          </div>
+          <div className="flex items-center gap-2 mt-2">
+            <span className="h-1.5 w-1.5 bg-[#F8AFA6] rounded-full animate-pulse" />
+            <span className="text-xs font-bold uppercase tracking-widest opacity-40">System Active</span>
+          </div>
+        </div>
+      </header>
 
-          <MoodTrackerCard />
+      {/* TOP ROW: Stats & Mini Cal */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
 
-          <div className="space-y-6">
-            <QuoteCard />
-            <div className="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-6">
-              <p className="text-indigo-600 font-bold text-sm flex items-center gap-3">
-                <span className="text-xl">🤖</span>"{user?.name || "Guest"}, you're ahead of schedule. Take a 5-minute coffee break!"
-              </p>
+        {/* Progress Card */}
+        <GlassCard className="lg:col-span-8 flex flex-col md:flex-row items-center gap-8 bg-gradient-to-br from-white/80 to-[#FADCD9]/20">
+          <div className="relative h-40 w-40 flex-none">
+            <ResponsiveContainer width="100%" height={160}>
+              <PieChart>
+                {/* quick */}
+                <Pie
+                  data={chartData}
+                  innerRadius={50}
+                  outerRadius={65}
+                  dataKey="value"
+                  stroke="none"
+                >
+                  <Cell fill="#F8AFA6" />
+                  <Cell fill="#5B4B49" fillOpacity={0.05} />
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-2xl font-black">{percent}%</span>
+              <span className="text-[10px] uppercase font-bold opacity-40">Done</span>
             </div>
           </div>
+          <div className="flex-1">
+            <h3 className="text-xl font-black mb-2">Project Velocity</h3>
 
-          <TaskListFiller />
+            <p className="text-sm text-[#5B4B49]/70 mb-4 leading-relaxed">
+              You’ve completed <span className="font-bold text-[#F8AFA6]">{done}</span> out of{" "}
+              <span className="font-bold text-[#5B4B49]">{total}</span> tasks today.
+              {total > 0 && (
+                <>
+                  {" "}That's{" "}
+                  <span className="font-bold text-[#F8AFA6]">
+                    {percent}%
+                  </span>{" "}
+                  of your workload.
+                </>
+              )}
+            </p>
 
+            <button className="bg-[#5B4B49] text-white px-6 py-2 rounded-2xl text-xs font-bold hover:bg-[#F8AFA6] transition-colors shadow-md">
+              View Report
+            </button>
+          </div>
+        </GlassCard>
+        {/* pablo */}
+        {/* Calendar Card */}
+        <GlassCard className="lg:col-span-4 bg-white">
+          <CalendarCardOldUpgraded />
+        </GlassCard>
+      </div>
+
+      {/* BOTTOM ROW: Widgets */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <MoodTrackerCard />
+
+        <div className="space-y-6">
+          <QuoteCard />
+          <div className="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-6">
+            <p className="text-indigo-600 font-bold text-sm flex items-center gap-3">
+              <span className="text-xl">🤖</span>"{user?.name || "Guest"}, you're ahead of schedule. Take a 5-minute coffee break!"
+            </p>
+          </div>
         </div>
-      </main>
+
+        <TaskListFiller />
+
+      </div>
     </div>
   );
 }

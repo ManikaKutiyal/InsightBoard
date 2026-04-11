@@ -24,22 +24,22 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   return (
-    <nav className="bg-white shadow p-4 flex justify-between items-center">
-
+    <nav className="bg-white/70 backdrop-blur-md border-b border-white/50 p-4 flex justify-between items-center sticky top-0 z-40">
       {/* LEFT SIDE: LOGO + NAME */}
       <div className="flex items-center gap-3">
         <img
           src="https://m.media-amazon.com/images/I/51Z0iXejQvL._AC_UF1000,1000_QL80_.jpg"
           alt="Logo"
-          className="h-10 w-10 object-cover"
+          className="h-8 w-8 lg:h-10 lg:w-10 object-cover rounded-lg"
         />
-        <span className="text-xl font-bold">InsightBoard</span>
+        <span className="text-lg lg:text-xl font-bold tracking-tight text-[#5B4B49]">InsightBoard</span>
       </div>
 
-      <div className="hidden md:flex items-center gap-8">
-        <Link to="/dashboard" className="text-sm font-bold text-[#5B4B49]/60 hover:text-[#5B4B49] transition-colors">Dashboard</Link>
-        <Link to="/kanban" className="text-sm font-bold text-[#5B4B49]/60 hover:text-[#5B4B49] transition-colors">Synergy Board</Link>
-        <Link to="/forge" className="text-[#F8AFA6] text-sm font-black uppercase tracking-widest hover:scale-105 transition-all">The Forge</Link>
+      {/* DESKTOP LINKS */}
+      <div className="hidden lg:flex items-center gap-8">
+        <Link to="/dashboard" className="text-xs font-bold text-[#5B4B49]/60 hover:text-[#5B4B49] transition-colors">DASHBOARD</Link>
+        <Link to="/kanban" className="text-xs font-bold text-[#5B4B49]/60 hover:text-[#5B4B49] transition-colors">SYNERGY BOARD</Link>
+        <Link to="/forge" className="text-[#F8AFA6] text-xs font-black uppercase tracking-widest hover:scale-105 transition-all">THE FORGE</Link>
       </div>
 
       {/* RIGHT SIDE: AVATAR + DROPDOWN */}

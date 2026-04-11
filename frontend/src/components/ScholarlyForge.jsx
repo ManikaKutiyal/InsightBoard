@@ -68,21 +68,21 @@ export default function ScholarlyForge() {
     };
 
     return (
-        <div className="h-[calc(100vh-72px)] bg-[#FDF8F5] p-8 flex gap-8">
+        <div className="h-full bg-[#FDF8F5] p-4 lg:p-8 flex flex-col lg:flex-row gap-8 overflow-hidden">
             {/* LEFT: CHAT AREA */}
-            <div className="flex-1 flex flex-col h-full gap-6">
-                <header className="flex items-center gap-4 mb-2">
+            <div className="flex-1 flex flex-col h-full min-h-0 gap-4 lg:gap-6">
+                <header className="flex items-center gap-4 mb-2 shrink-0">
                     <div className="bg-[#5B4B49] p-3 rounded-2xl text-white shadow-lg">
                         <FiMessageSquare size={24} />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-black text-[#5B4B49]">Collab Hub</h1>
-                        <p className="text-[#F8AFA6] font-bold text-xs uppercase tracking-widest">Global Discussion • Live Insights</p>
+                        <h1 className="text-2xl lg:text-3xl font-black text-[#5B4B49]">Collab Hub</h1>
+                        <p className="text-[#F8AFA6] font-bold text-[10px] uppercase tracking-widest">Global Discussion • Live Insights</p>
                     </div>
                 </header>
 
-                <GlassCard className="flex-1 flex flex-col overflow-hidden p-8">
-                    <div className="flex-1 overflow-y-auto space-y-6 pr-4 custom-scrollbar">
+                <GlassCard className="flex-1 flex flex-col overflow-hidden p-4 lg:p-8">
+                    <div className="flex-1 overflow-y-auto space-y-6 pr-2 lg:pr-4 custom-scrollbar">
                         {messages.length === 0 && (
                             <div className="h-full flex flex-col items-center justify-center text-center opacity-40 grayscale">
                                 <FiMessageSquare size={64} className="mb-4" />
@@ -135,7 +135,7 @@ export default function ScholarlyForge() {
             </div>
 
             {/* RIGHT: LIVE HUD */}
-            <aside className="w-80 flex flex-col gap-6">
+            <aside className="w-full lg:w-80 flex flex-col gap-6 shrink-0">
                 <GlassCard className="p-6 bg-gradient-to-br from-[#5B4B49] to-[#3D3231] text-white">
                     <h3 className="text-xs font-black uppercase tracking-[0.2em] opacity-60 mb-4">Forge Status</h3>
                     <div className="flex items-center gap-4">

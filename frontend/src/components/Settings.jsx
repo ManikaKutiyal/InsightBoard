@@ -104,17 +104,17 @@ export default function Settings() {
                 </button>
             </header>
 
-            <div className="flex gap-12 flex-1 overflow-hidden">
-                {/* LEFT: NAV TABS */}
-                <aside className="w-56 flex flex-col gap-2">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 flex-1 overflow-hidden">
+                {/* LEFT: NAV TABS (HORIZONTAL ON MOBILE) */}
+                <aside className="w-full lg:w-56 flex lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 custom-scrollbar shrink-0">
                     {tabs.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-4 px-6 py-4 rounded-2xl font-bold text-sm transition-all
+                            className={`flex items-center gap-4 px-6 py-3 lg:py-4 rounded-2xl font-bold text-xs lg:text-sm transition-all whitespace-nowrap
                 ${activeTab === tab.id
                                     ? "bg-[#5B4B49] text-white shadow-lg"
-                                    : "text-[#5B4B49]/50 hover:bg-white hover:text-[#5B4B49]"
+                                    : "bg-white lg:bg-transparent text-[#5B4B49]/50 hover:bg-white hover:text-[#5B4B49]"
                                 }`}
                         >
                             <span className="text-lg">{tab.icon}</span>
@@ -124,7 +124,7 @@ export default function Settings() {
                 </aside>
 
                 {/* RIGHT: CONTENT BLOCKS */}
-                <div className="flex-1 max-w-2xl overflow-y-auto pr-4 custom-scrollbar pb-12">
+                <div className="flex-1 max-w-full lg:max-w-2xl overflow-y-auto pr-0 lg:pr-4 custom-scrollbar pb-12">
                     {activeTab === "profile" && (
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <SettingsCard title="Scholar Profile" subtitle="How others see you in the Collab Hub">

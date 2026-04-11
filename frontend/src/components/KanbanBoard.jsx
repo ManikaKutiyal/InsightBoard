@@ -38,7 +38,7 @@ export default function UnifiedKanban() {
   return (
     <div className="flex h-[calc(100vh-72px)] bg-[#FDF8F5] overflow-hidden">
       {/* KANBAN SECTION */}
-      <div className={`flex-1 p-8 transition-all duration-500 overflow-y-auto ${showAI ? 'pr-4' : 'pr-8'}`}>
+      <div className={`flex-1 transition-all duration-500 overflow-x-auto custom-scrollbar ${showAI ? 'pr-4' : ''}`}>
         <header className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-black text-[#5B4B49]">Synergy Board</h1>
@@ -119,7 +119,16 @@ export default function UnifiedKanban() {
 
       {/* AI ASSISTANT PANEL */}
       {showAI && (
-        <aside className="w-96 border-l border-[#FADCD9]/50 bg-white/50 backdrop-blur-xl p-6 flex flex-col">
+        <aside className="fixed inset-0 lg:relative lg:inset-auto z-50 lg:z-0 w-full lg:w-96 lg:border-l border-[#FADCD9]/50 bg-white lg:bg-white/50 backdrop-blur-3xl lg:backdrop-blur-xl p-6 flex flex-col animate-in slide-in-from-right duration-300">
+          <div className="flex justify-between items-center mb-6 lg:hidden">
+            <h2 className="text-xl font-black text-[#5B4B49]">Synergy AI</h2>
+            <button
+              onClick={() => setShowAI(false)}
+              className="p-2 bg-[#FDF8F5] rounded-xl text-[#F8AFA6]"
+            >
+              <span className="text-xs font-black uppercase tracking-widest">Close [X]</span>
+            </button>
+          </div>
           <AIChatPanel tasks={tasks} addTask={addTask} updateTask={updateTask} />
         </aside>
       )}
