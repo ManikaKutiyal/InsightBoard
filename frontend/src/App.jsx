@@ -8,6 +8,7 @@ import AuthPage from "./components/AuthPage";
 import Layout from "./components/Layout";
 import LandingPage from "./components/LandingPage";
 import ScholarlyForge from "./components/ScholarlyForge";
+import Settings from "./components/Settings";
 import { SocketProvider } from "./context/SocketContext";
 
 export default function App() {
@@ -57,6 +58,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Layout><ScholarlyForge /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Layout><Settings /></Layout>
               </ProtectedRoute>
             }
           />

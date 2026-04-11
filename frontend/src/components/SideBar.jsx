@@ -48,7 +48,13 @@ export default function Sidebar() {
             active={pathname === "/forge"}
           />
         </Link>
-        <SidebarItem emoji={<IoSettings size={28} />} label="Settings" />
+        <Link to="/settings">
+          <SidebarItem
+            emoji={<IoSettings size={28} />}
+            label="Settings"
+            active={pathname === "/settings"}
+          />
+        </Link>
       </nav>
 
       <div className="text-[10px] font-black text-[#F8AFA6] rotate-90 mb-4 opacity-50 tracking-widest">

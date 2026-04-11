@@ -9,6 +9,7 @@ export default function AuthPage() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
+  const [message, setMessage] = useState({ type: null, text: "" });
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -33,21 +34,22 @@ export default function AuthPage() {
       const data = await res.json();
 
       if (data.error) {
-        alert(data.error);
+        setMessage({ type: "error", text: data.error });
       } else {
         if (tab === "login") {
           login(data.token);
           navigate("/dashboard");
         } else {
-          alert("Signup successful! Please login now.");
+          setMessage({ type: "success", text: "Welcome! Account created. Please login." });
           setTab("login");
-          setForm({ ...form, password: "" }); // Keep email, clear password for login
+          setForm({ ...form, password: "" });
         }
       }
     } catch (error) {
-      alert("An error occurred. Please try again.");
+      setMessage({ type: "error", text: "Sync failed. Check your connection." });
     } finally {
       setLoading(false);
+      setTimeout(() => setMessage({ type: null, text: "" }), 5000);
     }
   }
 
@@ -100,6 +102,15 @@ export default function AuthPage() {
               Signup
             </button>
           </div>
+
+          {/* Feedback Message */}
+          {message.text && (
+            <div className={`mx-8 mb-4 p-3 rounded-xl text-center text-xs font-bold uppercase tracking-widest animate-in fade-in zoom-in duration-300
+              ${message.type === "success" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-500"}
+            `}>
+              {message.text}
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="px-8 pb-8 space-y-4">

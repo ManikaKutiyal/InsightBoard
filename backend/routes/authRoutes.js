@@ -89,4 +89,31 @@ router.get("/location", async (req, res) => {
   }
 });
 
+// GET CURRENT USER DATA
+router.get("/me", auth, async (req, res) => {
+  try {
+    const user = await KanbanUser.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch user" });
+  }
+});
+
+// UPDATE PROFILE
+import auth from "../middleware/auth.js";
+router.put("/update", auth, async (req, res) => {
+  try {
+    const { name, bio, subjects, theme } = req.body;
+    const user = await KanbanUser.findByIdAndUpdate(
+      req.user.id,
+      { name, bio, subjects, theme },
+      { new: true }
+    ).select("-password");
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: "Update failed" });
+  }
+});
+
 export default router;
