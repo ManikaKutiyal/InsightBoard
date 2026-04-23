@@ -12,13 +12,11 @@ export default function AIChatPanel({ tasks, addTask, updateTask }) {
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
 
-  // --- AUTO SCROLL ---
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => { scrollToBottom(); }, [messages]);
 
-  // --- LOGIC (UNTOUCHED) ---
   function parseAIResponse(text) {
     try {
       const jsonStart = text.indexOf("JSON:");
@@ -88,7 +86,6 @@ export default function AIChatPanel({ tasks, addTask, updateTask }) {
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      {/* 1. Header & Role Selector */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 bg-[#F8AFA6] rounded-xl flex items-center justify-center text-white shadow-sm">
@@ -111,7 +108,6 @@ export default function AIChatPanel({ tasks, addTask, updateTask }) {
         </div>
       </div>
 
-      {/* 2. Messages Window */}
       <div className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
         {messages.length === 0 && (
           <div className="text-center mt-10 px-4">
@@ -122,14 +118,12 @@ export default function AIChatPanel({ tasks, addTask, updateTask }) {
 
         {messages.map((m, i) => (
           <div key={i} className="space-y-3">
-            {/* User Message */}
             <div className="flex justify-end">
               <div className="max-w-[80%] bg-[#5B4B49] text-white p-3 rounded-2xl rounded-tr-none text-xs font-medium shadow-sm">
                 {m.you}
               </div>
             </div>
 
-            {/* Bot Message */}
             <div className="flex justify-start items-start gap-2">
               <div className="w-6 h-6 rounded-full bg-[#F8AFA6]/20 flex items-center justify-center text-[#F8AFA6] flex-shrink-0 mt-1">
                 <FiCpu size={12} />
@@ -143,7 +137,6 @@ export default function AIChatPanel({ tasks, addTask, updateTask }) {
         <div ref={chatEndRef} />
       </div>
 
-      {/* 3. Input Area */}
       <div className="mt-6 relative">
         <input
           className="w-full bg-[#FDF8F5] border-none rounded-[1.5rem] py-4 pl-5 pr-14 text-xs font-bold text-[#5B4B49] placeholder:text-[#5B4B49]/30 focus:ring-2 focus:ring-[#F8AFA6]/20 transition-all outline-none"
